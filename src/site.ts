@@ -17,7 +17,7 @@ export const OPERATOR = {
     countryCode: 'PT',
     address: 'Av. do Atlântico 16, Esc. 5.07, 1990-019 Lisboa, Portugal',
     /** NIPC / VAT number. Fill in to show it in the legal notice (Impressum / mentions légales / aviso legal). */
-    taxId: '',
+    taxId: '517169029',
     groupUrl: 'https://ownizo.com'
 } as const;
 
