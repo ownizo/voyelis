@@ -1,4 +1,5 @@
 ---
+// Voyelis logo: map-and-suitcase mark + wordmark (deep teal, as in the brand logo).
 interface Props {
     inverted?: boolean;
     class?: string;
@@ -7,11 +8,8 @@ const { inverted = false, class: className = '' } = Astro.props;
 ---
 
 <span class:list={['inline-flex items-center gap-2.5', className]}>
-    <svg viewBox="0 0 64 64" class="h-10 w-10 shrink-0" aria-hidden="true">
-        <rect width="64" height="64" rx="18" fill="#0E7C7B"></rect>
-        <path d="M17 21.5 32 46l15-24.5" fill="none" stroke="#F7F4EE" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
-        <path d="M38 13.5c4.6-1.4 9.2-.6 12.5 2.2" fill="none" stroke="#F3A58F" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 5.2"></path>
-        <circle cx="50" cy="19" r="4.2" fill="#F3A58F"></circle>
-    </svg>
-    <span class:list={['font-serif text-[1.7rem] font-semibold leading-none tracking-tight', inverted ? 'text-paper' : 'text-ink']}>Voyelis</span>
+    <span class:list={['flex shrink-0 items-center justify-center rounded-full', inverted ? 'h-14 w-14 bg-paper p-1' : 'h-14 w-14']}>
+        <img src="/brand/mark-160.png" alt="" width="160" height="160" class="h-full w-full object-contain" decoding="async" />
+    </span>
+    <span class:list={['text-[1.75rem] font-medium leading-none tracking-tight', inverted ? 'text-paper' : 'text-brand']}>Voyelis</span>
 </span>

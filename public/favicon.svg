@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Voyelis">
-  <rect width="64" height="64" rx="18" fill="#0E7C7B"/>
-  <path d="M17 21.5 32 46l15-24.5" fill="none" stroke="#F7F4EE" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M38 13.5c4.6-1.4 9.2-.6 12.5 2.2" fill="none" stroke="#F3A58F" stroke-width="3" stroke-linecap="round" stroke-dasharray="0.1 5.2"/>
-  <circle cx="50" cy="19" r="4.2" fill="#F3A58F"/>
-</svg>

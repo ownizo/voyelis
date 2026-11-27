@@ -15,6 +15,9 @@
     --color-coral: #c8502f;
     --color-coral-deep: #a63f22;
     --color-peach: #f3a58f;
+    /* Logo colours */
+    --color-brand: #0f4955;
+    --color-ochre: #c0843a;
 }
 
 @layer base {

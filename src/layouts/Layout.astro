@@ -38,7 +38,7 @@ const orgLd = {
     name: SITE.name,
     url: SITE.url,
     email: SITE.email,
-    logo: `${SITE.url}/icon-512.png`,
+    logo: `${SITE.url}/brand/logo.png`,
     slogan: ui.brand.slogan,
     description: ui.brand.tagline,
     knowsAbout: ['Travel insurance', 'Trip cancellation insurance', 'Schengen visa insurance', 'Medical repatriation', 'Travel assistance'],
@@ -94,13 +94,13 @@ const ldBlocks = [orgLd, ...(isHome ? [siteLd] : []), ...(jsonLd ? (Array.isArra
         {noindex && <meta name="robots" content="noindex" />}
         {LOCALES.filter((l) => alternates[l]).map((l) => <link rel="alternate" hreflang={LOCALE_META[l].htmlLang} href={absoluteUrl(alternates[l]!)} />)}
         {alternates.en && <link rel="alternate" hreflang="x-default" href={absoluteUrl(alternates.en)} />}
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="48x48" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="alternate" type="text/plain" title="Summary for language models" href="/llms.txt" />
         <link rel="sitemap" href="/sitemap-index.xml" />
-        <meta name="theme-color" content="#0D1B2A" />
+        <meta name="theme-color" content="#0F4955" />
 
         <meta property="og:type" content={type} />
         <meta property="og:locale" content={meta.ogLocale} />

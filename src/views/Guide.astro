@@ -37,7 +37,7 @@ const articleLd = {
     inLanguage: LOCALE_META[locale].htmlLang,
     mainEntityOfPage: absoluteUrl(self),
     author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` } },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/brand/logo.png` } },
     articleSection: g.categories[post.data.category]
 };
 const crumbs = breadcrumbLd([
