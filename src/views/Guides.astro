@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { t } from '../i18n/ui';
+import { LOCALES, pagePath, type Locale } from '../i18n/routes';
+import { guidesFor } from '../lib/content';
+import { breadcrumbLd } from '../lib/seo';
+
+interface Props {
+    locale: Locale;
+}
+const { locale } = Astro.props;
+const ui = t(locale);
+const g = ui.guides;
+const posts = await guidesFor(locale);
+const used = [...new Set(posts.map((p) => p.data.category))];
+const alternates = Object.fromEntries(LOCALES.map((l) => [l, pagePath('guides', l)]));
+const crumbs = breadcrumbLd([
+    [g.breadcrumbHome, pagePath('home', locale)],
+    [g.eyebrow, pagePath('guides', locale)]
+]);
+---
+
+<Layout locale={locale} title={g.title} description={g.description} alternates={alternates} jsonLd={crumbs}>
+    <PageHeader eyebrow={g.eyebrow} title={g.h1} accent={g.accent} intro={g.intro}>
+        <div class="mt-8 flex flex-wrap gap-2" role="group">
+            <button type="button" data-filter="" class="filter rounded-full border border-ink bg-ink px-4 py-2 text-sm font-semibold text-paper">{g.all}</button>
+            {used.map((c) => <button type="button" data-filter={c} class="filter rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold">{g.categories[c]}</button>)}
+        </div>
+    </PageHeader>
+
+    <section class="container-vy">
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {
+                posts.map((p) => (
+                    <div data-category={p.data.category}>
+                        <ArticleCard post={p} />
+                    </div>
+                ))
+            }
+        </div>
+    </section>
+
+    <CtaBanner locale={locale} />
+</Layout>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    buttons.forEach((b) =>
+        b.addEventListener('click', () => {
+            const f = b.dataset.filter;
+            buttons.forEach((x) => {
+                const on = x === b;
+                x.classList.toggle('bg-ink', on);
+                x.classList.toggle('text-paper', on);
+                x.classList.toggle('border-ink', on);
+                x.classList.toggle('border-ink/15', !on);
+            });
+            document.querySelectorAll<HTMLElement>('[data-category]').forEach((el) => el.classList.toggle('hidden', !!f && el.dataset.category !== f));
+        })
+    );
+</script>

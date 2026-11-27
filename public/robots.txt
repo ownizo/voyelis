@@ -1,0 +1,22 @@
+# Voyelis — https://voyelis.com
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# AI assistants and AI search engines: access allowed (see /llms.txt)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://voyelis.com/sitemap-index.xml

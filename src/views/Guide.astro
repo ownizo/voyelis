@@ -1,0 +1,126 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { t } from '../i18n/ui';
+import { LOCALE_META, guidePath, pagePath, type Locale } from '../i18n/routes';
+import { guidesFor, guideSlug } from '../lib/content';
+import { absoluteUrl, breadcrumbLd, faqLd } from '../lib/seo';
+import { SITE } from '../site';
+
+interface Props {
+    post: CollectionEntry<'guides'>;
+    /** Path of the same guide in other languages (same translationKey). */
+    alternates: Partial<Record<Locale, string>>;
+}
+const { post, alternates } = Astro.props;
+const locale = post.data.lang as Locale;
+const ui = t(locale);
+const g = ui.guides;
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2);
+const self = guidePath(locale, guideSlug(post));
+const related = (await guidesFor(locale))
+    .filter((p) => p.id !== post.id)
+    .sort((a, b) => Number(b.data.category === post.data.category) - Number(a.data.category === post.data.category))
+    .slice(0, 3);
+
+const dateFmt = new Intl.DateTimeFormat(LOCALE_META[locale].intl, { day: 'numeric', month: 'long', year: 'numeric' });
+const articleLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.data.title,
+    description: post.data.description,
+    datePublished: post.data.pubDate.toISOString(),
+    dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+    inLanguage: LOCALE_META[locale].htmlLang,
+    mainEntityOfPage: absoluteUrl(self),
+    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    publisher: { '@type': 'Organization', name: SITE.name, logo: { '@type': 'ImageObject', url: `${SITE.url}/icon-512.png` } },
+    articleSection: g.categories[post.data.category]
+};
+const crumbs = breadcrumbLd([
+    [g.breadcrumbHome, pagePath('home', locale)],
+    [g.eyebrow, pagePath('guides', locale)],
+    [post.data.title, self]
+]);
+---
+
+<Layout locale={locale} title={post.data.title} description={post.data.description} type="article" alternates={{ ...alternates, [locale]: self }} jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
+    <article>
+        <header class="horizon">
+            <div class="container-vy pb-12 pt-14 sm:pt-20">
+                <nav class="text-sm text-ink-soft" aria-label="Breadcrumb">
+                    <a href={pagePath('guides', locale)} class="hover:text-lagoon-deep">{g.eyebrow}</a>
+                    <span class="mx-2">/</span>
+                    <span>{g.categories[post.data.category]}</span>
+                </nav>
+                <h1 class="mt-6 max-w-4xl !text-4xl sm:!text-[3.3rem]">{post.data.title}</h1>
+                <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{post.data.description}</p>
+                <p class="mt-6 text-sm text-ink/50">
+                    <time datetime={(post.data.updatedDate ?? post.data.pubDate).toISOString()}>{dateFmt.format(post.data.updatedDate ?? post.data.pubDate)}</time> · {post.data.readingTime}
+                    {g.minRead}
+                </p>
+            </div>
+        </header>
+
+        <div class="container-vy grid gap-14 lg:grid-cols-[1fr_270px]">
+            <div class="max-w-[720px]">
+                <div class="prose-vy"><Content /></div>
+                {
+                    post.data.faqs.length > 0 && (
+                        <section class="mt-16" aria-labelledby="faq">
+                            <h2 id="faq" class="text-2xl">
+                                {g.faq}
+                            </h2>
+                            <div class="mt-6 divide-y divide-ink/10 border-y border-ink/10">
+                                {post.data.faqs.map(({ q, a }) => (
+                                    <details class="group py-5">
+                                        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-bold">
+                                            {q}
+                                            <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-ink/15 transition group-open:rotate-45">+</span>
+                                        </summary>
+                                        <p class="mt-3 leading-relaxed text-ink-soft">{a}</p>
+                                    </details>
+                                ))}
+                            </div>
+                        </section>
+                    )
+                }
+            </div>
+            <aside class="hidden lg:block">
+                <div class="sticky top-28 space-y-6">
+                    {
+                        toc.length > 0 && (
+                            <nav aria-label={g.inThisGuide}>
+                                <p class="text-xs font-bold uppercase tracking-[0.18em] text-ink/50">{g.inThisGuide}</p>
+                                <ul class="mt-4 space-y-3 border-l border-ink/10 text-sm">
+                                    {toc.map((h) => (
+                                        <li>
+                                            <a href={`#${h.slug}`} class="-ml-px block border-l border-transparent pl-4 text-ink-soft hover:border-lagoon hover:text-ink">
+                                                {h.text}
+                                            </a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        )
+                    }
+                    <div class="rounded-3xl bg-ink p-6 text-paper">
+                        <p class="font-bold">{ui.cta.asideTitle}</p>
+                        <p class="mt-2 text-sm text-paper/70">{ui.cta.asideText}</p>
+                        <a href={pagePath('compare', locale)} class="btn-cta mt-5 w-full">{ui.cta.button}</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </article>
+
+    <section class="container-vy mt-24">
+        <h2 class="text-2xl">{g.keepReading}</h2>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">{related.map((p) => <ArticleCard post={p} />)}</div>
+    </section>
+
+    <CtaBanner locale={locale} />
+</Layout>

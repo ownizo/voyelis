@@ -1,0 +1,53 @@
+---
+// Suggests the visitor's browser language when this page exists in it and no language was chosen before.
+// Client-side only: no automatic redirects, so search engines and visitors always see the URL they asked for.
+import { UI_STRINGS } from '../i18n/ui';
+import { LOCALES, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+    alternates: Partial<Record<Locale, string>>;
+}
+const { locale, alternates } = Astro.props;
+const options = Object.fromEntries(
+    LOCALES.filter((l) => l !== locale && alternates[l]).map((l) => [l, { href: alternates[l], ...UI_STRINGS[l].langSuggest }])
+);
+---
+
+<div id="lang-suggest" class="hidden bg-ink text-paper" data-options={JSON.stringify(options)} data-current={locale}>
+    <div class="container-vy flex flex-wrap items-center justify-between gap-3 py-2.5 text-sm">
+        <span data-text></span>
+        <span class="flex items-center gap-2">
+            <a data-go class="rounded-full bg-paper px-4 py-1.5 text-xs font-bold text-ink hover:bg-peach"></a>
+            <button type="button" data-dismiss class="rounded-full px-3 py-1.5 text-xs text-paper/70 hover:text-paper"></button>
+        </span>
+    </div>
+</div>
+
+<script>
+    const box = document.getElementById('lang-suggest');
+    if (box) {
+        try {
+            const options = JSON.parse(box.dataset.options ?? '{}') as Record<string, { href: string; text: string; go: string; dismiss: string }>;
+            const chosen = localStorage.getItem('vy-lang');
+            const browser = (navigator.languages ?? [navigator.language]).map((l) => l.slice(0, 2).toLowerCase());
+            const match = browser.find((l) => options[l]);
+            if (!chosen && match && browser[0] !== box.dataset.current) {
+                const o = options[match];
+                box.querySelector('[data-text]')!.textContent = o.text;
+                const go = box.querySelector<HTMLAnchorElement>('[data-go]')!;
+                go.textContent = o.go;
+                go.href = o.href;
+                go.lang = match;
+                go.addEventListener('click', () => localStorage.setItem('vy-lang', match));
+                const dismiss = box.querySelector<HTMLButtonElement>('[data-dismiss]')!;
+                dismiss.textContent = o.dismiss;
+                dismiss.addEventListener('click', () => {
+                    localStorage.setItem('vy-lang', box.dataset.current!);
+                    box.classList.add('hidden');
+                });
+                box.classList.remove('hidden');
+            }
+        } catch {}
+    }
+</script>

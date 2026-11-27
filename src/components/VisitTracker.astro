@@ -1,0 +1,62 @@
+---
+// Cookie-free visit counter → Ownizo CRM (admin.adlerrochefort.com/api/site-track, table site_visits).
+// Sends the page, the source (referrer/UTM) and the time; the server adds country and device type.
+// No IP or user agent stored. Session id (sessionStorage) only with "Statistics" consent.
+// To exclude your own visits: open voyelis.com/?no-count=1 once on each device.
+---
+
+<script>
+    const ENDPOINT = 'https://admin.adlerrochefort.com/api/site-track';
+    const HOST = 'voyelis.com';
+
+    function optedOut(): boolean {
+        try {
+            const p = new URLSearchParams(location.search);
+            if (p.get('no-count') === '1') localStorage.setItem('vy-no-count', '1');
+            if (p.get('no-count') === '0') localStorage.removeItem('vy-no-count');
+            return localStorage.getItem('vy-no-count') === '1';
+        } catch {
+            return false;
+        }
+    }
+
+    function sessionId(): string | null {
+        try {
+            const consent = JSON.parse(localStorage.getItem('vy-consent') ?? 'null');
+            if (!consent?.analytics) return null;
+            let sid = sessionStorage.getItem('vy-sid');
+            if (!sid) {
+                sid = crypto.randomUUID();
+                sessionStorage.setItem('vy-sid', sid);
+            }
+            return sid;
+        } catch {
+            return null;
+        }
+    }
+
+    function send(payload: Record<string, unknown>, beacon = false) {
+        const body = JSON.stringify(payload);
+        try {
+            if (beacon && navigator.sendBeacon) {
+                navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain' }));
+                return;
+            }
+            fetch(ENDPOINT, { method: 'POST', body, keepalive: true, mode: 'cors', headers: { 'Content-Type': 'text/plain' } }).catch(() => {});
+        } catch {}
+    }
+
+    if (location.hostname.replace(/^www\./, '') === HOST && !optedOut() && !(navigator as any).webdriver) {
+        const visitId = crypto.randomUUID();
+        const started = Date.now();
+        send({ action: 'visit-start', visitId, sessionId: sessionId(), path: location.pathname, url: location.href, referrer: document.referrer });
+        let ended = false;
+        const end = () => {
+            if (ended) return;
+            ended = true;
+            send({ action: 'visit-end', visitId, url: location.href, durationSeconds: (Date.now() - started) / 1000 }, true);
+        };
+        document.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' && end());
+        window.addEventListener('pagehide', end);
+    }
+</script>

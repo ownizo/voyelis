@@ -1,0 +1,48 @@
+---
+// Single router for every page in every language.
+// English at the root, the other languages under /de, /fr and /es, with localised slugs (src/i18n/routes.ts).
+import { getCollection } from 'astro:content';
+import Home from '../views/Home.astro';
+import Compare from '../views/Compare.astro';
+import Guides from '../views/Guides.astro';
+import Guide from '../views/Guide.astro';
+import About from '../views/About.astro';
+import Legal from '../views/Legal.astro';
+import { LOCALES, PAGE_PATHS, guidePath, type Locale } from '../i18n/routes';
+import { guideSlug } from '../lib/content';
+
+export async function getStaticPaths() {
+    const paths: { params: { path: string | undefined }; props: Record<string, unknown> }[] = [];
+    const add = (path: string, props: Record<string, unknown>) => paths.push({ params: { path: path || undefined }, props });
+
+    for (const locale of LOCALES) {
+        add(PAGE_PATHS.home[locale], { view: 'home', locale });
+        add(PAGE_PATHS.compare[locale], { view: 'compare', locale });
+        add(PAGE_PATHS.guides[locale], { view: 'guides', locale });
+        add(PAGE_PATHS.about[locale], { view: 'about', locale });
+    }
+
+    for (const doc of await getCollection('legal')) {
+        add(PAGE_PATHS[doc.data.key][doc.data.lang as Locale], { view: 'legal', doc });
+    }
+
+    const guides = await getCollection('guides');
+    for (const post of guides) {
+        const alternates: Partial<Record<Locale, string>> = {};
+        for (const other of guides) {
+            if (other.data.translationKey === post.data.translationKey) alternates[other.data.lang as Locale] = guidePath(other.data.lang as Locale, guideSlug(other));
+        }
+        add(guidePath(post.data.lang as Locale, guideSlug(post)).slice(1), { view: 'guide', post, alternates });
+    }
+    return paths;
+}
+
+const props = Astro.props as any;
+---
+
+{props.view === 'home' && <Home locale={props.locale} />}
+{props.view === 'compare' && <Compare locale={props.locale} />}
+{props.view === 'guides' && <Guides locale={props.locale} />}
+{props.view === 'about' && <About locale={props.locale} />}
+{props.view === 'legal' && <Legal doc={props.doc} />}
+{props.view === 'guide' && <Guide post={props.post} alternates={props.alternates} />}

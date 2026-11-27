@@ -1,0 +1,29 @@
+{
+    "name": "voyelis",
+    "type": "module",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astrojs/netlify": "^7.0.0",
+        "@astrojs/sitemap": "^3.7.6",
+        "@fontsource-variable/fraunces": "^5.2.0",
+        "@fontsource-variable/plus-jakarta-sans": "^5.2.0",
+        "@netlify/blobs": "^10.7.2",
+        "@tailwindcss/vite": "^4.1.16",
+        "astro": "^6.0.0",
+        "tailwindcss": "^4.1.16"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.0"
+    },
+    "overrides": {
+        "vite": "^7.3.1"
+    }
+}

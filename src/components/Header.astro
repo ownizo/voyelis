@@ -1,0 +1,91 @@
+---
+import Logo from './Logo.astro';
+import { t } from '../i18n/ui';
+import { LOCALES, LOCALE_META, pagePath, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+    alternates: Partial<Record<Locale, string>>;
+}
+const { locale, alternates } = Astro.props;
+const ui = t(locale);
+const path = Astro.url.pathname.replace(/\.html$/, '');
+const nav = [
+    { href: pagePath('compare', locale), label: ui.nav.compare },
+    { href: pagePath('guides', locale), label: ui.nav.guides },
+    { href: pagePath('about', locale), label: ui.nav.about }
+];
+// Language switcher: same page in the other language, or that language's home page.
+const langs = LOCALES.map((l) => ({ l, href: alternates[l] ?? pagePath('home', l), meta: LOCALE_META[l] }));
+---
+
+<header class="sticky top-0 z-40 border-b border-ink/5 bg-paper/85 backdrop-blur-md">
+    <div class="container-vy flex h-[76px] items-center justify-between gap-6">
+        <a href={pagePath('home', locale)} class="no-underline" aria-label="Voyelis"><Logo /></a>
+
+        <nav class="hidden items-center gap-8 md:flex" aria-label="Main">
+            {
+                nav.map((item) => (
+                    <a href={item.href} class:list={['text-sm font-semibold transition hover:text-lagoon-deep', path.startsWith(item.href) ? 'text-lagoon-deep' : 'text-ink']}>
+                        {item.label}
+                    </a>
+                ))
+            }
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <details class="lang relative">
+                <summary class="flex h-11 cursor-pointer list-none items-center gap-1.5 rounded-full border border-ink/15 px-4 text-xs font-bold tracking-wider" aria-label={ui.nav.language}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                        ><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"></circle><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z" stroke="currentColor" stroke-width="1.6"></path></svg
+                    >
+                    {LOCALE_META[locale].short}
+                </summary>
+                <ul class="absolute right-0 mt-2 w-44 overflow-hidden rounded-2xl border border-ink/10 bg-white py-2 shadow-[0_20px_50px_-20px_rgba(13,27,42,0.4)]">
+                    {
+                        langs.map(({ l, href, meta }) => (
+                            <li>
+                                <a href={href} hreflang={meta.htmlLang} lang={meta.htmlLang} data-lang-choice={l} class:list={['flex items-center justify-between px-4 py-2.5 text-sm hover:bg-mist', l === locale && 'font-bold text-lagoon-deep']}>
+                                    {meta.label}
+                                    <span class="text-xs text-ink/40">{meta.short}</span>
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </details>
+            <a href={pagePath('compare', locale)} class="btn-cta hidden sm:inline-flex">{ui.nav.cta}</a>
+            <button id="menu-toggle" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 md:hidden" aria-label={ui.nav.menu} aria-expanded="false" aria-controls="mobile-menu">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-ink/5 bg-paper md:hidden">
+        <nav class="container-vy flex flex-col py-4" aria-label="Mobile">
+            {nav.map((item) => <a href={item.href} class="py-3 text-base font-semibold">{item.label}</a>)}
+            <a href={pagePath('compare', locale)} class="btn-cta mt-3">{ui.nav.cta}</a>
+        </nav>
+    </div>
+</header>
+
+<script>
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    toggle?.addEventListener('click', () => {
+        const open = menu?.classList.toggle('hidden') === false;
+        toggle.setAttribute('aria-expanded', String(open));
+    });
+    // Close the language menu when clicking elsewhere; remember an explicit choice.
+    const lang = document.querySelector<HTMLDetailsElement>('details.lang');
+    document.addEventListener('click', (e) => {
+        if (lang?.open && !lang.contains(e.target as Node)) lang.open = false;
+    });
+    document.querySelectorAll<HTMLAnchorElement>('[data-lang-choice]').forEach((a) =>
+        a.addEventListener('click', () => {
+            try {
+                localStorage.setItem('vy-lang', a.dataset.langChoice!);
+            } catch {}
+        })
+    );
+</script>

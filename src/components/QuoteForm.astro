@@ -1,0 +1,539 @@
+---
+import { countries } from '../lib/countries';
+import { TRIP_PURPOSES } from '../lib/insurance/types';
+import { t } from '../i18n/ui';
+import { LOCALE_META, pagePath, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+}
+const { locale } = Astro.props;
+const ui = t(locale);
+const f = ui.form;
+const intl = LOCALE_META[locale].intl;
+const list = countries(intl);
+
+// Residence countries shown first, per site language.
+const FEATURED: Record<Locale, string[]> = {
+    en: ['GB', 'US', 'IE', 'CA', 'AU', 'NZ', 'ZA', 'IN'],
+    de: ['DE', 'AT', 'CH', 'LU', 'LI', 'BE', 'NL', 'IT'],
+    fr: ['FR', 'BE', 'CH', 'LU', 'MC', 'CA', 'MA', 'SN'],
+    es: ['ES', 'MX', 'AR', 'CO', 'CL', 'PE', 'US', 'AD']
+};
+const featured = FEATURED[locale].map((code) => list.find((c) => c.code === code)!).filter(Boolean);
+const TABS = ['leisure', 'annual', 'schengen', 'cancellation'] as const;
+
+// Strings and settings used by the browser script.
+const clientConfig = {
+    locale,
+    intl,
+    f: {
+        remove: f.remove,
+        traveller: f.traveller,
+        years: f.years,
+        errDestination: f.errDestination,
+        errGeneric: f.errGeneric,
+        submit: f.submit,
+        submitting: f.submitting,
+        travellers: f.travellers,
+        insurer: f.insurer,
+        from: f.from,
+        total: f.total,
+        forAll: f.forAll,
+        choose: f.choose,
+        opening: f.opening,
+        openError: f.openError,
+        ipid: f.ipid,
+        conditions: f.conditions,
+        guarantees: f.guarantees,
+        g: f.g,
+        errors: f.errors
+    }
+};
+---
+
+<form id="quote-form" class="card relative space-y-8 bg-white p-6 shadow-[0_30px_70px_-40px_rgba(13,27,42,0.45)] sm:p-10" novalidate data-config={JSON.stringify(clientConfig)}>
+    <fieldset class="space-y-5">
+        <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-lagoon text-sm text-white">1</span>
+            {f.step1}
+        </legend>
+        <div class="flex flex-wrap gap-2" role="group" aria-label={f.purpose}>
+            {TABS.map((v) => <button type="button" data-purpose-tab={v} class="purpose-tab rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold transition">{f.tabs[v]}</button>)}
+        </div>
+        <div>
+            <label class="field-label" for="residence">{f.residence}</label>
+            <select class="field" id="residence" name="residence" required>
+                <option value="" selected disabled>{f.residencePick}</option>
+                <optgroup label={f.featured}>{featured.map((c) => <option value={c.code}>{c.name}</option>)}</optgroup>
+                <optgroup label={f.allCountries}>{list.map((c) => <option value={c.code}>{c.name}</option>)}</optgroup>
+            </select>
+            <p id="schengen-hint" class="mt-2 hidden text-xs leading-relaxed text-ink-soft">{f.schengenHint}</p>
+        </div>
+        <div>
+            <label class="field-label" for="dest-input">{f.destinations}</label>
+            <div class="flex gap-2">
+                <input class="field" id="dest-input" list="countries-list" placeholder={f.destPlaceholder} autocomplete="off" />
+                <button type="button" id="dest-add" class="btn-ghost shrink-0 !px-5">{f.add}</button>
+            </div>
+            <datalist id="countries-list">{list.map((c) => <option value={c.name} />)}</datalist>
+            <div id="dest-chips" class="mt-3 flex flex-wrap gap-2" aria-live="polite"></div>
+        </div>
+        <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+                <label class="field-label" for="departureDate">{f.departure}</label>
+                <input class="field" type="date" id="departureDate" name="departureDate" required />
+            </div>
+            <div>
+                <label class="field-label" for="returnDate">{f.return}</label>
+                <input class="field" type="date" id="returnDate" name="returnDate" required />
+            </div>
+            <div class="sm:col-span-2">
+                <label class="field-label" for="purpose">{f.purpose}</label>
+                <select class="field" id="purpose" name="purpose">
+                    {TRIP_PURPOSES.map((p) => <option value={p}>{f.purposes[p]}</option>)}
+                </select>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="space-y-5">
+        <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-lagoon text-sm text-white">2</span>
+            {f.step2}
+        </legend>
+        <p class="-mt-2 text-sm text-ink-soft">{f.agesHint}</p>
+        <div id="travellers" class="flex flex-wrap gap-3"></div>
+        <button type="button" id="add-traveller" class="btn-ghost !py-2 text-xs">{f.addTraveller}</button>
+        <label class="flex cursor-pointer items-start gap-3 text-sm leading-relaxed">
+            <input type="checkbox" id="extremeSports" class="mt-1 h-5 w-5 accent-[#0E7C7B]" />
+            <span>{f.extreme}</span>
+        </label>
+    </fieldset>
+
+    <fieldset class="space-y-5">
+        <legend class="mb-4 flex items-center gap-3 text-lg font-bold">
+            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-lagoon text-sm text-white">3</span>
+            {f.step3}
+        </legend>
+        <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-ink/10 bg-paper/60 p-4">
+            <input type="checkbox" id="cancellation" class="mt-1 h-5 w-5 accent-[#0E7C7B]" />
+            <span class="text-sm leading-relaxed">
+                <strong class="block text-ink">{f.cancelTitle}</strong>
+                {f.cancelText}
+            </span>
+        </label>
+        <div id="cancel-wrap" class="grid hidden gap-5 sm:grid-cols-2">
+            <div>
+                <label class="field-label" for="tripPrice">{f.tripPrice} (<span data-currency>EUR</span>)</label>
+                <input class="field" type="number" min="1" step="1" id="tripPrice" name="tripPrice" placeholder={f.tripPricePh} />
+            </div>
+            <div>
+                <label class="field-label" for="tripBookedDate">{f.bookedDate}</label>
+                <input class="field" type="date" id="tripBookedDate" name="tripBookedDate" />
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="hidden" aria-hidden="true">
+        <label>Website <input name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div id="form-error" class="hidden rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert"></div>
+
+    <div class="flex flex-col gap-4 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p class="max-w-sm text-xs leading-relaxed text-ink-soft">{f.privacy} <a href={pagePath('privacy', locale)} class="underline">{f.privacyLink}</a></p>
+        <button type="submit" class="btn-cta shrink-0 whitespace-nowrap px-8 py-4 text-base" id="submit-btn">{f.submit}</button>
+    </div>
+</form>
+
+<!-- No offers available -->
+<div id="quote-received" class="card hidden bg-white p-10 text-center" role="status" aria-live="polite">
+    <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-mist">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 7v6m0 4h.01" stroke="#0A5C5B" stroke-width="2.4" stroke-linecap="round"></path></svg>
+    </div>
+    <h2 class="mt-6 text-2xl sm:text-3xl">{f.noneTitle}</h2>
+    <p class="mx-auto mt-3 max-w-md text-ink-soft">{f.noneText}</p>
+    <button type="button" id="retry-trip" class="btn-primary mt-6">{f.editTrip}</button>
+</div>
+
+<!-- Offers -->
+<section id="quote-offers" class="hidden" aria-live="polite">
+    <div id="sandbox-banner" class="mb-6 hidden rounded-2xl border-2 border-dashed border-coral bg-coral/5 p-4 text-sm font-semibold text-coral-deep">{f.sandbox}</div>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <h2 class="text-2xl sm:text-3xl"><span data-count></span> {f.resultsTitle}</h2>
+            <p class="mt-2 text-sm text-ink-soft">{f.reference} <strong class="font-mono" data-ref></strong> · <span data-trip></span></p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-sm">
+            <span class="text-ink-soft">{f.sortBy}</span>
+            <button type="button" data-sort="protection" class="rounded-full bg-ink px-4 py-2 font-semibold text-paper">{f.sortProtection}</button>
+            <button type="button" data-sort="price" class="rounded-full border border-ink/15 px-4 py-2 font-semibold">{f.sortPrice}</button>
+        </div>
+    </div>
+    <div id="offers-list" class="mt-8 space-y-5"></div>
+    <p class="mt-8 text-xs leading-relaxed text-ink-soft">
+        {f.disclaimer} <a href={pagePath('terms', locale)} class="underline">{f.termsLink}</a>
+    </p>
+    <button type="button" id="edit-trip" class="btn-ghost mt-6">{f.editTrip}</button>
+</section>
+
+<script>
+    type Guarantee = { state: string; value?: number | null; franchise?: number; franchiseDetails?: string };
+    type Offer = {
+        offerId: number;
+        productName: string;
+        plan?: string;
+        insurer: string;
+        imageUrl?: string | null;
+        price: { amount: number; currency: string; isStartingPrice: boolean };
+        guaranteeCurrency: string;
+        guarantees: Record<string, Guarantee>;
+        highlights: { included: string[]; excluded: string[] };
+        documents: { cgvUrl?: string | null; ipidUrl?: string | null };
+        position: number;
+    };
+    type Strings = Record<string, any>;
+
+    const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+    const form = $<HTMLFormElement>('quote-form');
+    const config = JSON.parse(form.dataset.config!) as { locale: string; intl: string; f: Strings };
+    const S = config.f;
+    const travellersBox = $('travellers');
+    const cancel = $<HTMLInputElement>('cancellation');
+    const cancelWrap = $('cancel-wrap');
+    const errorBox = $('form-error');
+    const submitBtn = $<HTMLButtonElement>('submit-btn');
+    const destInput = $<HTMLInputElement>('dest-input');
+    const chips = $('dest-chips');
+    const residence = $<HTMLSelectElement>('residence');
+
+    // Currency of prices and trip cost, from the country of residence (same table as the server).
+    const CURRENCY: Record<string, string> = {
+        GB: 'GBP', GG: 'GBP', JE: 'GBP', IM: 'GBP', GI: 'GBP', US: 'USD', PR: 'USD', GU: 'USD', VI: 'USD', AS: 'USD', MP: 'USD', EC: 'USD', SV: 'USD', PA: 'USD',
+        CH: 'CHF', LI: 'CHF', CA: 'CAD', AU: 'AUD', NZ: 'NZD', SE: 'SEK', NO: 'NOK', DK: 'DKK', IS: 'ISK', PL: 'PLN', CZ: 'CZK', HU: 'HUF', RO: 'RON',
+        BR: 'BRL', MX: 'MXN', MA: 'MAD', ZA: 'ZAR', TR: 'TRY', IN: 'INR', HK: 'HKD', SG: 'SGD', AE: 'AED', JP: 'JPY', KR: 'KRW', PH: 'PHP'
+    };
+    const currency = () => CURRENCY[residence.value] ?? 'EUR';
+
+    // Name ↔ code map from the residence select (same country list)
+    const byName = new Map<string, string>();
+    const byCode = new Map<string, string>();
+    for (const o of Array.from(residence.options)) {
+        if (!o.value) continue;
+        byName.set(o.text.toLocaleLowerCase(config.intl), o.value);
+        byCode.set(o.value, o.text);
+    }
+    const destinations: string[] = [];
+
+    function renderChips() {
+        chips.innerHTML = '';
+        for (const code of destinations) {
+            const chip = document.createElement('span');
+            chip.className = 'inline-flex items-center gap-2 rounded-full bg-ink px-4 py-1.5 text-sm text-paper';
+            chip.textContent = byCode.get(code) ?? code;
+            const x = document.createElement('button');
+            x.type = 'button';
+            x.className = 'text-paper/60 hover:text-paper';
+            x.setAttribute('aria-label', `${S.remove} ${chip.textContent}`);
+            x.textContent = '×';
+            x.onclick = () => {
+                destinations.splice(destinations.indexOf(code), 1);
+                renderChips();
+            };
+            chip.appendChild(x);
+            chips.appendChild(chip);
+        }
+    }
+    function addDestination(value: string) {
+        const v = value.trim();
+        const code = byName.get(v.toLocaleLowerCase(config.intl)) ?? (byCode.has(v.toUpperCase()) ? v.toUpperCase() : undefined);
+        if (!code) return false;
+        if (!destinations.includes(code) && destinations.length < 20) destinations.push(code);
+        destInput.value = '';
+        renderChips();
+        return true;
+    }
+    destInput.addEventListener('change', () => addDestination(destInput.value));
+    destInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            addDestination(destInput.value);
+        }
+    });
+    $('dest-add').addEventListener('click', () => {
+        if (!addDestination(destInput.value)) destInput.focus();
+    });
+
+    function addTraveller(age = '') {
+        const n = travellersBox.children.length + 1;
+        const wrap = document.createElement('div');
+        wrap.className = 'flex items-center gap-2 rounded-2xl border border-ink/10 bg-paper/60 py-2 pl-4 pr-2';
+        wrap.innerHTML = `<label class="text-xs font-bold text-ink-soft" for="age-${n}">${S.traveller} ${n}</label>
+            <input id="age-${n}" class="field !w-24 !px-2 !py-2 text-center" type="number" min="0" max="120" placeholder="${S.years}" data-age required value="${age}">
+            <button type="button" class="h-8 w-8 rounded-full text-ink/40 hover:bg-white hover:text-ink" aria-label="${S.remove} ${S.traveller} ${n}">×</button>`;
+        wrap.querySelector('button')!.addEventListener('click', () => travellersBox.children.length > 1 && wrap.remove());
+        travellersBox.appendChild(wrap);
+    }
+
+    // Prefill from links (?purpose=annual, ?destinations=US,CA, ?residence=GB, ?travellers=2, ?cancellation=1)
+    const params = new URLSearchParams(location.search);
+    const today = new Date().toISOString().slice(0, 10);
+    const count = Math.min(Math.max(Number(params.get('travellers')) || 1, 1), 10);
+    for (let i = 0; i < count; i++) addTraveller();
+    for (const c of (params.get('destinations') ?? '').split(',')) if (c) addDestination(c);
+    for (const key of ['departureDate', 'returnDate', 'purpose'] as const) {
+        const v = params.get(key);
+        const el = form.elements.namedItem(key) as HTMLInputElement | null;
+        if (v && el && (key !== 'purpose' || Array.from((el as unknown as HTMLSelectElement).options).some((o) => o.value === v))) el.value = v;
+    }
+    const resParam = (params.get('residence') ?? '').toUpperCase();
+    if (resParam && byCode.has(resParam)) residence.value = resParam;
+    if (params.get('cancellation') === '1') cancel.checked = true;
+    for (const k of ['departureDate', 'returnDate']) (form.elements.namedItem(k) as HTMLInputElement).min = today;
+    (form.elements.namedItem('tripBookedDate') as HTMLInputElement).max = today;
+    $('add-traveller').addEventListener('click', () => travellersBox.children.length < 50 && addTraveller());
+
+    // Trip type: quick tabs ↔ select, and the rules of each type
+    const purposeSel = $<HTMLSelectElement>('purpose');
+    const tripPriceInput = $<HTMLInputElement>('tripPrice');
+    const SCHENGEN = new Set(['AT', 'BE', 'BG', 'HR', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'CH']);
+    let forcedCancel = false;
+    function sync() {
+        const p = purposeSel.value;
+        document.querySelectorAll<HTMLButtonElement>('[data-purpose-tab]').forEach((b) => {
+            const on = b.dataset.purposeTab === p;
+            b.classList.toggle('bg-ink', on);
+            b.classList.toggle('text-paper', on);
+            b.classList.toggle('border-ink', on);
+            b.setAttribute('aria-pressed', String(on));
+        });
+        const onlyCancel = p === 'cancellation';
+        if (onlyCancel && !cancel.checked) {
+            cancel.checked = true;
+            forcedCancel = true;
+        } else if (!onlyCancel && forcedCancel) {
+            cancel.checked = false;
+            forcedCancel = false;
+        }
+        cancel.disabled = onlyCancel;
+        tripPriceInput.required = cancel.checked;
+        cancelWrap.classList.toggle('hidden', !cancel.checked);
+        document.querySelectorAll('[data-currency]').forEach((el) => (el.textContent = currency()));
+        $('schengen-hint').classList.toggle('hidden', !(p === 'schengen' && (!residence.value || SCHENGEN.has(residence.value))));
+    }
+    document.querySelectorAll<HTMLButtonElement>('[data-purpose-tab]').forEach((b) =>
+        b.addEventListener('click', () => {
+            purposeSel.value = b.dataset.purposeTab!;
+            sync();
+        })
+    );
+    purposeSel.addEventListener('change', sync);
+    residence.addEventListener('change', sync);
+    cancel.addEventListener('change', sync);
+    sync();
+
+    // ---------- Offers ----------
+    const ORDER = ['hospitalFeesAbroad', 'rapatriationAssistance', 'directBilling', 'cancelTrip', 'earlyReturn', 'privateRc', 'suitcaseInsurance', 'preExistingConditions', 'extremeSports'];
+    const money = (v: number, cur: string) => new Intl.NumberFormat(config.intl, { style: 'currency', currency: cur || 'EUR', maximumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+
+    function guaranteeText(g: Guarantee | undefined, cur: string): { text: string; ok: boolean } {
+        const G = S.g;
+        if (!g) return { text: '—', ok: false };
+        switch (g.state) {
+            case 'value':
+                return g.value != null ? { text: `${G.upTo} ${money(g.value, cur)}`, ok: true } : { text: G.included, ok: true };
+            case 'unlimited':
+                return { text: G.unlimited, ok: true };
+            case 'actual_costs':
+                return { text: G.actual, ok: true };
+            case 'included':
+                return { text: G.included, ok: true };
+            case 'per_day':
+                return { text: g.value != null ? `${money(g.value, cur)} ${G.perDay}` : G.included, ok: true };
+            case 'return_ticket':
+                return { text: G.ticket, ok: true };
+            case 'trip_price':
+                return { text: g.value != null ? `${G.upTo} ${money(g.value, cur)}` : G.tripPrice, ok: true };
+            case 'many_reasons':
+                return { text: G.reasons, ok: true };
+            case 'any_justified_reason':
+                return { text: G.anyReason, ok: true };
+            case 'number':
+                return { text: String(g.value ?? ''), ok: true };
+            case 'percentage':
+                return { text: `${g.value ?? ''}%`, ok: true };
+            case 'not_available':
+                return { text: G.notIncluded, ok: false };
+            default:
+                return { text: G.seeConditions, ok: true };
+        }
+    }
+    // Score used to sort by medical cover
+    const medicalScore = (o: Offer) => {
+        const g = o.guarantees.hospitalFeesAbroad;
+        if (!g || g.state === 'not_available') return 0;
+        if (g.state === 'unlimited' || g.state === 'actual_costs') return Number.MAX_SAFE_INTEGER;
+        return g.value ?? 1;
+    };
+
+    let offers: Offer[] = [];
+    let reference = '';
+
+    const escapeHtml = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+    const safeUrl = (u?: string | null) => (u && /^https:\/\//.test(u) ? escapeHtml(u) : '');
+
+    function renderOffers(sort: 'protection' | 'price') {
+        const list = [...offers].sort((a, b) => (sort === 'price' ? a.price.amount - b.price.amount : medicalScore(b) - medicalScore(a) || a.price.amount - b.price.amount));
+        $('offers-list').innerHTML = list
+            .map((o) => {
+                const rows = ORDER.filter((slug) => o.guarantees[slug])
+                    .slice(0, 7)
+                    .map((slug) => {
+                        const tx = guaranteeText(o.guarantees[slug], o.guaranteeCurrency);
+                        const fr = o.guarantees[slug]?.franchiseDetails;
+                        return `<li class="flex items-start justify-between gap-4 border-t border-ink/5 py-2 text-sm"><span class="text-ink-soft">${escapeHtml(S.guarantees[slug] ?? slug)}${
+                            fr ? `<span class="block text-xs text-ink/40">${escapeHtml(fr)}</span>` : ''
+                        }</span><span class="shrink-0 text-right font-semibold ${tx.ok ? 'text-ink' : 'text-ink/35'}">${escapeHtml(tx.text)}</span></li>`;
+                    })
+                    .join('');
+                const ipid = safeUrl(o.documents.ipidUrl);
+                const cgv = safeUrl(o.documents.cgvUrl);
+                const docs = [
+                    ipid ? `<a class="underline hover:text-lagoon-deep" href="${ipid}" target="_blank" rel="noopener">${escapeHtml(S.ipid)}</a>` : '',
+                    cgv ? `<a class="underline hover:text-lagoon-deep" href="${cgv}" target="_blank" rel="noopener">${escapeHtml(S.conditions)}</a>` : ''
+                ]
+                    .filter(Boolean)
+                    .join(' · ');
+                const img = safeUrl(o.imageUrl);
+                const inc = o.highlights.included.slice(0, 3).map((h) => `<li>✓ ${escapeHtml(h)}</li>`).join('');
+                const exc = o.highlights.excluded.slice(0, 2).map((h) => `<li class="text-ink/45">✕ ${escapeHtml(h)}</li>`).join('');
+                return `<article class="grid gap-6 rounded-3xl border border-ink/10 bg-white p-6 sm:p-8 lg:grid-cols-[1.6fr_1fr]">
+                    <div>
+                        <div class="flex items-center gap-4">
+                            ${img ? `<img src="${img}" alt="" width="48" height="48" class="h-12 w-12 rounded-xl" loading="lazy">` : ''}
+                            <div>
+                                <h3 class="text-lg leading-tight">${escapeHtml(o.productName)}</h3>
+                                <p class="text-sm text-ink-soft">${escapeHtml(S.insurer)}: ${escapeHtml(o.insurer)}</p>
+                            </div>
+                        </div>
+                        <ul class="mt-5">${rows}</ul>
+                        ${inc || exc ? `<ul class="mt-4 space-y-1 text-xs text-ink-soft">${inc}${exc}</ul>` : ''}
+                    </div>
+                    <div class="flex flex-col justify-between gap-5 rounded-2xl bg-mist/60 p-6">
+                        <div>
+                            <p class="text-xs font-bold uppercase tracking-[0.15em] text-ink-soft">${escapeHtml(o.price.isStartingPrice ? S.from : S.total)}</p>
+                            <p class="mt-1 text-4xl font-bold tracking-tight">${money(o.price.amount, o.price.currency)}</p>
+                            <p class="mt-1 text-xs text-ink-soft">${escapeHtml(S.forAll)}</p>
+                        </div>
+                        <div>
+                            <button type="button" data-offer="${o.offerId}" class="btn-cta w-full py-4">${escapeHtml(S.choose)}</button>
+                            ${docs ? `<p class="mt-3 text-xs leading-relaxed text-ink-soft">${docs}</p>` : ''}
+                        </div>
+                    </div>
+                </article>`;
+            })
+            .join('');
+        document.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((btn) => {
+            btn.className = `rounded-full px-4 py-2 font-semibold ${btn.dataset.sort === sort ? 'bg-ink text-paper' : 'border border-ink/15'}`;
+        });
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('[data-sort]').forEach((b) => b.addEventListener('click', () => renderOffers(b.dataset.sort as 'protection' | 'price')));
+
+    const errorText = (code?: string) => (code && S.errors[code]) || S.errGeneric;
+
+    $('offers-list').addEventListener('click', async (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-offer]');
+        if (!btn) return;
+        const label = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = S.opening;
+        try {
+            const res = await fetch('/api/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ reference, offerId: Number(btn.dataset.offer) }) });
+            const data = await res.json();
+            if (!data.ok) throw new Error(S.errors[data.error] ?? S.openError);
+            window.location.href = data.url;
+        } catch (err) {
+            alert((err as Error).message || S.openError);
+            btn.disabled = false;
+            btn.textContent = label;
+        }
+    });
+
+    const backToForm = (panel: string) => () => {
+        $(panel).classList.add('hidden');
+        form.classList.remove('hidden');
+        form.scrollIntoView({ behavior: 'smooth' });
+    };
+    $('retry-trip').addEventListener('click', backToForm('quote-received'));
+    $('edit-trip').addEventListener('click', backToForm('quote-offers'));
+
+    // ---------- Submit ----------
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errorBox.classList.add('hidden');
+        if (destInput.value) addDestination(destInput.value);
+        if (!destinations.length) {
+            errorBox.textContent = S.errDestination;
+            errorBox.classList.remove('hidden');
+            destInput.focus();
+            return;
+        }
+        if (!form.reportValidity()) return;
+
+        const fd = new FormData(form);
+        const source: Record<string, string> = { page: location.pathname };
+        for (const k of ['utm_source', 'utm_medium', 'utm_campaign']) if (params.get(k)) source[k] = params.get(k)!;
+        const payload = {
+            language: config.locale,
+            residence: residence.value,
+            destinations,
+            departureDate: fd.get('departureDate') as string,
+            returnDate: fd.get('returnDate') as string,
+            purpose: fd.get('purpose'),
+            travellers: Array.from(travellersBox.querySelectorAll<HTMLInputElement>('[data-age]')).map((i) => ({ age: Number(i.value) })),
+            cancellation: cancel.checked || fd.get('purpose') === 'cancellation',
+            tripPrice: cancel.checked && fd.get('tripPrice') ? Number(fd.get('tripPrice')) : undefined,
+            tripBookedDate: cancel.checked && fd.get('tripBookedDate') ? fd.get('tripBookedDate') : undefined,
+            extremeSports: $<HTMLInputElement>('extremeSports').checked,
+            website: (fd.get('website') as string) || undefined,
+            source
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = S.submitting;
+        try {
+            const res = await fetch('/api/quote', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+            const data = await res.json();
+            if (!data.ok) {
+                const codes = [...new Set((data.fieldErrors ?? []).map((x: { code: string }) => x.code))] as string[];
+                throw new Error(codes.length ? codes.map(errorText).join(' · ') : S.errGeneric);
+            }
+
+            reference = data.result.reference;
+            document.querySelectorAll('[data-ref]').forEach((el) => (el.textContent = reference));
+            form.classList.add('hidden');
+
+            if (data.result.status === 'offers') {
+                offers = data.result.offers;
+                document.querySelector('[data-count]')!.textContent = String(offers.length);
+                const fmt = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString(config.intl, { day: 'numeric', month: 'short' });
+                document.querySelector('[data-trip]')!.textContent = `${destinations.map((c) => byCode.get(c)).join(', ')} · ${fmt(payload.departureDate)} – ${fmt(payload.returnDate)} · ${payload.travellers.length} ${S.travellers}`;
+                $('sandbox-banner').classList.toggle('hidden', data.result.mode !== 'sandbox');
+                renderOffers('protection');
+                $('quote-offers').classList.remove('hidden');
+                $('quote-offers').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                $('quote-received').classList.remove('hidden');
+                $('quote-received').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        } catch (err) {
+            errorBox.textContent = (err as Error).message || S.errGeneric;
+            errorBox.classList.remove('hidden');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = S.submit;
+        }
+    });
+</script>

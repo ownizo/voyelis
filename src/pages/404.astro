@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { UI_STRINGS } from '../i18n/ui';
+import { LOCALES, pagePath } from '../i18n/routes';
+
+const ui = UI_STRINGS.en;
+---
+
+<Layout locale="en" title={ui.notFound.title} description={ui.notFound.text} alternates={{}} noindex>
+    <section class="horizon">
+        <div class="container-vy py-28 text-center">
+            <p class="font-serif text-8xl italic text-lagoon">404</p>
+            <div class="mx-auto mt-8 grid max-w-3xl gap-8 sm:grid-cols-2">
+                {
+                    LOCALES.map((l) => (
+                        <div lang={l}>
+                            <h1 class="!text-2xl">{UI_STRINGS[l].notFound.title}</h1>
+                            <p class="mt-2 text-sm text-ink-soft">{UI_STRINGS[l].notFound.text}</p>
+                            <a href={pagePath('home', l)} class="mt-4 inline-block text-sm font-semibold text-lagoon-deep underline">
+                                {UI_STRINGS[l].notFound.home}
+                            </a>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+</Layout>

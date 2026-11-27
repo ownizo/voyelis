@@ -1,0 +1,58 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { t } from '../i18n/ui';
+import { LOCALES, LOCALE_META, pagePath, type Locale } from '../i18n/routes';
+import { LEGAL_UPDATED, OPERATOR, SITE } from '../site';
+
+interface Props {
+    doc: CollectionEntry<'legal'>;
+}
+const { doc } = Astro.props;
+const locale = doc.data.lang as Locale;
+const ui = t(locale);
+const { Content } = await render(doc);
+const alternates = Object.fromEntries(LOCALES.map((l) => [l, pagePath(doc.data.key, l)]));
+// Company block of the legal notice, built from src/site.ts (the tax number only appears once filled in).
+const L = {
+    en: { publisher: 'Site publisher', email: 'Email', tax: 'Tax / VAT number (NIPC)', director: 'Managing director and publication director', registry: 'Registered in the Portuguese Commercial Registry' },
+    de: { publisher: 'Anbieter', email: 'E-Mail', tax: 'Steuer- / USt-Nummer (NIPC)', director: 'Geschäftsführer und inhaltlich Verantwortlicher', registry: 'Eingetragen im portugiesischen Handelsregister (Registo Comercial)' },
+    fr: { publisher: 'Éditeur du site', email: 'E-mail', tax: 'Numéro fiscal / TVA (NIPC)', director: 'Gérant et directeur de la publication', registry: 'Immatriculée au registre du commerce portugais (Registo Comercial)' },
+    es: { publisher: 'Titular del sitio', email: 'Email', tax: 'NIF / IVA (NIPC)', director: 'Administrador y responsable de los contenidos', registry: 'Inscrita en el Registro Mercantil portugués (Registo Comercial)' }
+}[locale];
+const updated = new Intl.DateTimeFormat(LOCALE_META[locale].intl, { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(LEGAL_UPDATED));
+---
+
+<Layout locale={locale} title={doc.data.title} description={doc.data.description} alternates={alternates}>
+    <PageHeader eyebrow={ui.legal.eyebrow} title={doc.data.title} intro={`${ui.legal.updated}: ${updated}.`}>
+        {doc.data.key === 'cookies' && <button type="button" data-cookie-settings class="btn-primary mt-8">{ui.cookie.manage}</button>}
+    </PageHeader>
+    <section class="container-vy">
+        {
+            doc.data.key === 'notice' && (
+                <div class="card mb-12 max-w-3xl">
+                    <p class="text-xs font-bold uppercase tracking-[0.16em] text-lagoon-deep">{L.publisher}</p>
+                    <p class="mt-3 leading-relaxed">
+                        <strong>{OPERATOR.legalName}</strong>
+                        <br />
+                        {OPERATOR.street}, {OPERATOR.postalCode} {OPERATOR.city}, {OPERATOR.country}
+                        <br />
+                        {L.email}: <a class="font-semibold text-lagoon-deep underline" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                        <br />
+                        {L.registry}
+                        {OPERATOR.taxId && (
+                            <>
+                                <br />
+                                {L.tax}: {OPERATOR.taxId}
+                            </>
+                        )}
+                        <br />
+                        {L.director}: Hugo Gonçalves
+                    </p>
+                </div>
+            )
+        }
+        <div class="prose-vy max-w-3xl"><Content /></div>
+    </section>
+</Layout>

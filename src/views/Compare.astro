@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { t } from '../i18n/ui';
+import { LOCALES, pagePath, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+}
+const { locale } = Astro.props;
+const ui = t(locale);
+const c = ui.compare;
+const alternates = Object.fromEntries(LOCALES.map((l) => [l, pagePath('compare', l)]));
+---
+
+<Layout locale={locale} title={c.title} description={c.description} alternates={alternates}>
+    <PageHeader eyebrow={c.eyebrow} title={c.h1} accent={c.accent} intro={c.intro} />
+    <section class="container-vy max-w-4xl">
+        <QuoteForm locale={locale} />
+    </section>
+</Layout>

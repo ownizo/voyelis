@@ -1,0 +1,179 @@
+@import 'tailwindcss';
+
+@theme {
+    --font-sans: 'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Fraunces Variable', Georgia, serif;
+
+    /* Voyelis palette: midnight ink, lagoon teal, coral call-to-action, warm paper */
+    --color-paper: #f7f4ee;
+    --color-shell: #efe9df;
+    --color-ink: #0d1b2a;
+    --color-ink-soft: #3d4f66;
+    --color-lagoon: #0e7c7b;
+    --color-lagoon-deep: #0a5c5b;
+    --color-mist: #e2efec;
+    --color-coral: #c8502f;
+    --color-coral-deep: #a63f22;
+    --color-peach: #f3a58f;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-paper font-sans text-ink antialiased;
+    }
+
+    ::selection {
+        @apply bg-lagoon text-white;
+    }
+
+    h1,
+    h2,
+    h3 {
+        @apply font-bold tracking-tight text-ink;
+        text-wrap: balance;
+    }
+
+    h1 {
+        @apply text-4xl leading-[1.04] sm:text-6xl;
+    }
+
+    h2 {
+        @apply text-3xl leading-tight sm:text-4xl;
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--color-lagoon);
+        outline-offset: 3px;
+        border-radius: 6px;
+    }
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition duration-200;
+}
+
+@layer components {
+    .container-vy {
+        @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+    }
+
+    .eyebrow {
+        @apply inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-lagoon-deep;
+    }
+
+    .eyebrow::before {
+        content: '';
+        @apply inline-block h-1.5 w-1.5 rounded-full bg-coral;
+    }
+
+    .accent {
+        @apply font-serif font-normal italic text-lagoon;
+    }
+
+    .btn-primary {
+        @apply btn bg-ink text-paper hover:bg-lagoon-deep;
+    }
+
+    .btn-cta {
+        @apply btn bg-coral text-white hover:bg-coral-deep;
+    }
+
+    .btn-ghost {
+        @apply btn border border-ink/20 text-ink hover:border-ink hover:bg-white/60;
+    }
+
+    .card {
+        @apply rounded-3xl border border-ink/10 bg-white/70 p-7;
+    }
+
+    .field-label {
+        @apply mb-1.5 block text-xs font-bold uppercase tracking-[0.12em] text-ink-soft;
+    }
+
+    .field {
+        @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] text-ink transition placeholder:text-ink/35 focus:border-lagoon focus:ring-4 focus:ring-lagoon/15 focus:outline-none;
+    }
+
+    .horizon {
+        background-image:
+            radial-gradient(circle at 12% 8%, rgba(14, 124, 123, 0.1), transparent 42%),
+            radial-gradient(circle at 88% 22%, rgba(200, 80, 47, 0.08), transparent 38%);
+    }
+
+    .flight-path {
+        background-image: radial-gradient(circle, currentColor 1.3px, transparent 1.5px);
+        background-size: 9px 4px;
+        background-repeat: repeat-x;
+        background-position: center;
+    }
+
+    /* Articles and legal pages */
+    .prose-vy {
+        @apply text-[17px] leading-[1.8] text-ink-soft;
+    }
+
+    .prose-vy > * + * {
+        @apply mt-5;
+    }
+
+    .prose-vy h2 {
+        @apply mt-12 scroll-mt-28 text-2xl text-ink sm:text-[1.7rem];
+    }
+
+    .prose-vy h3 {
+        @apply mt-8 text-lg text-ink;
+    }
+
+    .prose-vy a {
+        @apply font-semibold text-lagoon-deep underline decoration-lagoon/40 underline-offset-4 hover:decoration-lagoon;
+    }
+
+    .prose-vy strong {
+        @apply font-semibold text-ink;
+    }
+
+    .prose-vy ul,
+    .prose-vy ol {
+        @apply space-y-2 pl-6;
+    }
+
+    .prose-vy ul {
+        @apply list-disc marker:text-coral;
+    }
+
+    .prose-vy ol {
+        @apply list-decimal marker:font-semibold marker:text-lagoon-deep;
+    }
+
+    .prose-vy blockquote {
+        @apply my-10 border-l-4 border-lagoon pl-6 font-serif text-2xl leading-snug text-ink italic;
+    }
+
+    .prose-vy table {
+        @apply block w-full overflow-x-auto rounded-2xl border border-ink/10 text-left text-[15px] sm:table;
+    }
+
+    .prose-vy th {
+        @apply bg-ink px-4 py-3 text-xs font-semibold tracking-wider text-paper uppercase;
+    }
+
+    .prose-vy td {
+        @apply border-t border-ink/10 bg-white/70 px-4 py-3 align-top;
+    }
+
+    .prose-vy code {
+        @apply rounded bg-shell px-1.5 py-0.5 text-[0.9em];
+    }
+}

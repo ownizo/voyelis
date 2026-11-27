@@ -1,0 +1,24 @@
+---
+import { t } from '../i18n/ui';
+import { pagePath, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+}
+const { locale } = Astro.props;
+const ui = t(locale);
+---
+
+<section class="container-vy mt-24">
+    <div class="relative overflow-hidden rounded-[2rem] bg-ink px-8 py-14 text-paper sm:px-14">
+        <div class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-lagoon/40 blur-3xl" aria-hidden="true"></div>
+        <div class="absolute -bottom-28 left-10 h-56 w-56 rounded-full bg-coral/25 blur-3xl" aria-hidden="true"></div>
+        <div class="relative grid items-center gap-8 md:grid-cols-[1.5fr_auto]">
+            <div>
+                <h2 class="text-paper">{ui.cta.title}</h2>
+                <p class="mt-4 max-w-xl text-paper/75">{ui.cta.text}</p>
+            </div>
+            <a href={pagePath('compare', locale)} class="btn-cta px-8 py-4 text-base">{ui.cta.button}</a>
+        </div>
+    </div>
+</section>

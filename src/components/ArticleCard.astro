@@ -1,0 +1,20 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t } from '../i18n/ui';
+import { guidePath, type Locale } from '../i18n/routes';
+import { guideSlug } from '../lib/content';
+
+interface Props {
+    post: CollectionEntry<'guides'>;
+}
+const { post } = Astro.props;
+const locale = post.data.lang as Locale;
+const ui = t(locale);
+---
+
+<a href={guidePath(locale, guideSlug(post))} class="group flex h-full flex-col rounded-3xl border border-ink/10 bg-white/70 p-7 transition hover:-translate-y-0.5 hover:border-lagoon/40 hover:bg-white">
+    <span class="text-xs font-bold uppercase tracking-[0.16em] text-lagoon-deep">{ui.guides.categories[post.data.category]}</span>
+    <h3 class="mt-4 text-lg leading-snug group-hover:text-lagoon-deep">{post.data.title}</h3>
+    <p class="mt-3 grow text-sm leading-relaxed text-ink-soft">{post.data.description}</p>
+    <span class="mt-6 text-xs font-semibold text-ink/50">{post.data.readingTime} {ui.guides.minRead} →</span>
+</a>
