@@ -50,13 +50,13 @@ const crumbs = breadcrumbLd([
 <Layout locale={locale} title={post.data.title} description={post.data.description} type="article" alternates={{ ...alternates, [locale]: self }} jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
     <article>
         <header class="horizon">
-            <div class="container-vy pb-12 pt-14 sm:pt-20">
+            <div class="container-vy pb-10 pt-10 sm:pb-12 sm:pt-20">
                 <nav class="text-sm text-ink-soft" aria-label="Breadcrumb">
                     <a href={pagePath('guides', locale)} class="hover:text-lagoon-deep">{g.eyebrow}</a>
                     <span class="mx-2">/</span>
                     <span>{g.categories[post.data.category]}</span>
                 </nav>
-                <h1 class="mt-6 max-w-4xl !text-4xl sm:!text-[3.3rem]">{post.data.title}</h1>
+                <h1 class="mt-6 max-w-4xl !text-[2.1rem] sm:!text-[3.3rem]">{post.data.title}</h1>
                 <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{post.data.description}</p>
                 <p class="mt-6 text-sm text-ink/50">
                     <time datetime={(post.data.updatedDate ?? post.data.pubDate).toISOString()}>{dateFmt.format(post.data.updatedDate ?? post.data.pubDate)}</time> · {post.data.readingTime}

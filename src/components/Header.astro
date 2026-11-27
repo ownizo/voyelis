@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import InstallApp from './InstallApp.astro';
 import { t } from '../i18n/ui';
 import { LOCALES, LOCALE_META, pagePath, type Locale } from '../i18n/routes';
 
@@ -63,8 +64,9 @@ const langs = LOCALES.map((l) => ({ l, href: alternates[l] ?? pagePath('home', l
 
     <div id="mobile-menu" class="hidden border-t border-ink/5 bg-paper md:hidden">
         <nav class="container-vy flex flex-col py-4" aria-label="Mobile">
-            {nav.map((item) => <a href={item.href} class="py-3 text-base font-semibold">{item.label}</a>)}
-            <a href={pagePath('compare', locale)} class="btn-cta mt-3">{ui.nav.cta}</a>
+            {nav.map((item) => <a href={item.href} class="border-b border-ink/5 py-3.5 text-base font-semibold">{item.label}</a>)}
+            <a href={pagePath('compare', locale)} class="btn-cta mt-3 py-3.5">{ui.nav.cta}</a>
+            <InstallApp locale={locale} variant="menu" />
         </nav>
     </div>
 </header>
@@ -75,6 +77,12 @@ const langs = LOCALES.map((l) => ({ l, href: alternates[l] ?? pagePath('home', l
     toggle?.addEventListener('click', () => {
         const open = menu?.classList.toggle('hidden') === false;
         toggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
+            menu.classList.add('hidden');
+            toggle?.setAttribute('aria-expanded', 'false');
+        }
     });
     // Close the language menu when clicking elsewhere; remember an explicit choice.
     const lang = document.querySelector<HTMLDetailsElement>('details.lang');

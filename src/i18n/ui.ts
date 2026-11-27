@@ -261,6 +261,14 @@ const en = {
         save: 'Save choices',
         manage: 'Manage cookie preferences'
     },
+    pwa: {
+        install: 'Install the app',
+        installShort: 'Install',
+        iosTitle: 'Add Voyelis to your Home Screen',
+        iosSteps: ['Tap the Share button in Safari', 'Choose “Add to Home Screen”', 'Tap “Add”'],
+        close: 'Close'
+    },
+    mobileCta: 'Compare travel insurance',
     legal: { updated: 'Last updated', eyebrow: 'Legal' },
     notFound: { title: 'Page not found', text: 'The page you are looking for does not exist or has moved.', home: 'Back to the home page' }
 };
@@ -526,6 +534,14 @@ const de: UI = {
         save: 'Auswahl speichern',
         manage: 'Cookie-Einstellungen verwalten'
     },
+    pwa: {
+        install: 'App installieren',
+        installShort: 'Installieren',
+        iosTitle: 'Voyelis zum Home-Bildschirm hinzufügen',
+        iosSteps: ['Tippen Sie in Safari auf „Teilen“', 'Wählen Sie „Zum Home-Bildschirm“', 'Tippen Sie auf „Hinzufügen“'],
+        close: 'Schließen'
+    },
+    mobileCta: 'Reiseversicherung vergleichen',
     legal: { updated: 'Stand', eyebrow: 'Rechtliches' },
     notFound: { title: 'Seite nicht gefunden', text: 'Die gesuchte Seite existiert nicht oder wurde verschoben.', home: 'Zur Startseite' }
 };
@@ -789,6 +805,14 @@ const fr: UI = {
         save: 'Enregistrer mes choix',
         manage: 'Gérer mes préférences cookies'
     },
+    pwa: {
+        install: 'Installer l’application',
+        installShort: 'Installer',
+        iosTitle: 'Ajouter Voyelis à l’écran d’accueil',
+        iosSteps: ['Touchez le bouton Partager dans Safari', 'Choisissez « Sur l’écran d’accueil »', 'Touchez « Ajouter »'],
+        close: 'Fermer'
+    },
+    mobileCta: 'Comparer les assurances voyage',
     legal: { updated: 'Dernière mise à jour', eyebrow: 'Informations légales' },
     notFound: { title: 'Page introuvable', text: 'La page que vous cherchez n’existe pas ou a été déplacée.', home: 'Retour à l’accueil' }
 };
@@ -1052,6 +1076,14 @@ const es: UI = {
         save: 'Guardar preferencias',
         manage: 'Gestionar preferencias de cookies'
     },
+    pwa: {
+        install: 'Instalar la app',
+        installShort: 'Instalar',
+        iosTitle: 'Añade Voyelis a tu pantalla de inicio',
+        iosSteps: ['Toca el botón Compartir en Safari', 'Elige «Añadir a pantalla de inicio»', 'Toca «Añadir»'],
+        close: 'Cerrar'
+    },
+    mobileCta: 'Comparar seguros de viaje',
     legal: { updated: 'Última actualización', eyebrow: 'Legal' },
     notFound: { title: 'Página no encontrada', text: 'La página que buscas no existe o se ha movido.', home: 'Volver al inicio' }
 };

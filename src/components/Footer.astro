@@ -1,5 +1,6 @@
 ---
 import Logo from './Logo.astro';
+import InstallApp from './InstallApp.astro';
 import { SITE, OPERATOR, PARTNER } from '../site';
 import { t, fill } from '../i18n/ui';
 import { pagePath, guidePath, type Locale } from '../i18n/routes';
@@ -16,13 +17,14 @@ const values = { site: SITE.name, operator: OPERATOR.legalName, address: OPERATO
 const complaints = { en: 'Complaints book (Portugal)', de: 'Beschwerdebuch (Portugal)', fr: 'Livre de réclamations (Portugal)', es: 'Libro de reclamaciones (Portugal)' }[locale];
 ---
 
-<footer class="mt-24 bg-ink text-paper/80">
+<footer class="mt-24 bg-ink pb-[env(safe-area-inset-bottom)] text-paper/80">
     <div class="container-vy grid gap-12 py-16 md:grid-cols-[1.4fr_1.3fr_1fr]">
         <div>
             <Logo inverted />
             <p class="mt-6 font-serif text-2xl italic text-paper">{ui.brand.slogan}</p>
             <p class="mt-3 max-w-sm text-sm leading-relaxed text-paper/70">{ui.brand.tagline}</p>
             <p class="mt-6 text-sm"><a class="font-semibold text-paper hover:text-peach" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+            <InstallApp locale={locale} />
         </div>
 
         <div>

@@ -1,0 +1,37 @@
+---
+// Bottom bar on phones with the main call to action. Hidden while a quote form is on screen
+// and on the compare page itself. Respects the iPhone home-indicator area.
+import { t } from '../i18n/ui';
+import { pagePath, type Locale } from '../i18n/routes';
+
+interface Props {
+    locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<div id="mobile-cta" class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-ink/10 bg-paper/95 px-4 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 backdrop-blur-md transition-transform duration-300 md:hidden">
+    <a href={pagePath('compare', locale)} class="btn-cta w-full py-3.5 text-base">{t(locale).mobileCta}</a>
+</div>
+
+<script>
+    const bar = document.getElementById('mobile-cta');
+    const form = document.getElementById('quote-form');
+    const results = ['quote-offers', 'quote-received'].map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const cookie = document.getElementById('cookie-banner');
+    if (bar && !(form && location.pathname.match(/^\/(compare|de\/vergleich|fr\/comparer|es\/comparar)$/))) {
+        let formVisible = false;
+        let scrolled = false;
+        const update = () => {
+            const quoting = results.some((r) => !r.classList.contains('hidden'));
+            const cookieOpen = cookie && !cookie.classList.contains('hidden');
+            const on = scrolled && !formVisible && !quoting && !cookieOpen;
+            bar.classList.toggle('translate-y-full', !on);
+            document.body.classList.toggle('has-mobile-cta', on);
+        };
+        if (form) new IntersectionObserver(([e]) => ((formVisible = e.isIntersecting), update())).observe(form);
+        addEventListener('scroll', () => ((scrolled = scrollY > 320), update()), { passive: true });
+        addEventListener('vy:consent', update);
+        update();
+    }
+</script>

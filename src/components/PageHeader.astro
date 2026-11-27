@@ -9,9 +9,9 @@ const { eyebrow, title, accent, intro } = Astro.props;
 ---
 
 <section class="horizon">
-    <div class="container-vy pb-14 pt-16 sm:pt-20">
+    <div class="container-vy pb-10 pt-10 sm:pb-14 sm:pt-20">
         <span class="eyebrow">{eyebrow}</span>
-        <h1 class="mt-6 max-w-4xl !text-4xl sm:!text-5xl">
+        <h1 class="mt-6 max-w-4xl !text-[2.15rem] sm:!text-5xl">
             {title}{accent && <> <span class="accent">{accent}</span></>}
         </h1>
         {intro && <p class="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{intro}</p>}

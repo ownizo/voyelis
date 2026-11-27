@@ -1,11 +1,28 @@
 {
-    "name": "Voyelis",
+    "id": "/",
+    "name": "Voyelis — Travel insurance comparison",
     "short_name": "Voyelis",
-    "icons": [
-        { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-        { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
-    ],
+    "description": "Compare travel insurance from several insurers, ranked by medical cover. English, Deutsch, Français, Español.",
+    "lang": "en",
+    "dir": "ltr",
+    "start_url": "/?source=pwa",
+    "scope": "/",
+    "display": "standalone",
+    "display_override": ["standalone", "minimal-ui"],
+    "orientation": "any",
     "theme_color": "#0F4955",
-    "background_color": "#FFFFFF",
-    "display": "standalone"
+    "background_color": "#F7F4EE",
+    "categories": ["travel", "finance"],
+    "icons": [
+        { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+        { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+        { "src": "/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+        { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ],
+    "shortcuts": [
+        { "name": "Compare travel insurance", "url": "/compare?source=pwa", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Reiseversicherung vergleichen", "url": "/de/vergleich?source=pwa", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Comparer les assurances voyage", "url": "/fr/comparer?source=pwa", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Comparar seguros de viaje", "url": "/es/comparar?source=pwa", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+    ]
 }

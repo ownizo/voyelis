@@ -38,6 +38,18 @@
     h3 {
         @apply font-bold tracking-tight text-ink;
         text-wrap: balance;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Room for the fixed mobile call-to-action bar */
+    body.has-mobile-cta {
+        padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+    }
+
+    html {
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
     }
 
     h1 {
@@ -106,7 +118,7 @@
     }
 
     .field {
-        @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-[15px] text-ink transition placeholder:text-ink/35 focus:border-lagoon focus:ring-4 focus:ring-lagoon/15 focus:outline-none;
+        @apply min-h-12 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-base text-ink sm:text-[15px] transition placeholder:text-ink/35 focus:border-lagoon focus:ring-4 focus:ring-lagoon/15 focus:outline-none;
     }
 
     .horizon {
@@ -174,6 +186,22 @@
 
     .prose-vy td {
         @apply border-t border-ink/10 bg-white/70 px-4 py-3 align-top;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+    }
+
+    .prose-vy {
+        overflow-wrap: break-word;
+    }
+
+    @media (max-width: 639px) {
+        .prose-vy {
+            @apply text-base leading-[1.75];
+        }
+        .prose-vy th,
+        .prose-vy td {
+            @apply px-3 py-2.5 text-sm;
+        }
     }
 
     .prose-vy code {
