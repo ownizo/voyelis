@@ -43,6 +43,8 @@ Steuern und Gebühren, die die Airline ohnehin erstatten muss (etwa bestimmte Fl
 
 **Jeder begründete Anlass.** Weiter gefasste Policen decken jedes unvorhersehbare, nachweisbare Ereignis, manchmal mit höherer Selbstbeteiligung.
 
+Sie möchten ganz ohne Grund stornieren können? Lesen Sie unseren Ratgeber zum [Reiserücktritt ohne Grund (CFAR)](/de/ratgeber/reiseruecktritt-ohne-grund-cfar) und den Vergleich [genannte Gründe, begründeter Anlass oder ohne Grund](/de/ratgeber/reiseruecktritt-gruende-jeder-begruendete-anlass).
+
 Nie versichert: ein Grund, der beim Abschluss schon bestand oder absehbar war, und eine einfache Meinungsänderung.
 
 ## Wann abschließen?

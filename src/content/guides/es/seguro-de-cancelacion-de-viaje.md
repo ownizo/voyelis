@@ -43,6 +43,8 @@ Las tasas que la aerolínea debe devolver de todos modos (como algunas tasas aer
 
 **Cualquier motivo justificado.** Las pólizas más amplias cubren cualquier imprevisto ajeno a tu voluntad que puedas acreditar, a veces con una franquicia mayor.
 
+¿Quieres poder cancelar sin dar ningún motivo? Consulta la guía del [seguro de cancelación por cualquier motivo (CFAR)](/es/guias/seguro-cancelacion-por-cualquier-motivo) y la comparativa [motivos tasados, causa justificada o cualquier motivo](/es/guias/seguro-cancelacion-motivos-tasados-o-justificados).
+
 Nunca cubiertos: un motivo que ya existía o era previsible al contratar, y el simple cambio de opinión.
 
 ## Cuándo contratarlo

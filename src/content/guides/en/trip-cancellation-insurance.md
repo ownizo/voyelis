@@ -45,6 +45,8 @@ Policies follow one of two logics.
 
 **Any justified reason.** Broader policies cover any unforeseeable event beyond your control that you can document, sometimes with a higher excess.
 
+Want to cancel without needing a reason at all? See [cancel for any reason (CFAR)](/guides/cancel-for-any-reason-travel-insurance) and our comparison of [named reasons, any justified reason and CFAR](/guides/named-reasons-vs-any-justified-reason-cancellation).
+
 Never covered: a reason that existed or was foreseeable when you bought the policy, and a simple change of mind.
 
 ## When to buy it

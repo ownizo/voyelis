@@ -43,6 +43,8 @@ Les taxes que la compagnie doit de toute façon rembourser (certaines taxes aér
 
 **Tout motif justifié.** Les contrats plus larges couvrent tout événement imprévisible et indépendant de votre volonté que vous pouvez prouver, parfois avec une franchise plus élevée.
 
+Vous voulez pouvoir annuler sans motif ? Voir notre guide de l’[annulation sans motif (cancel for any reason)](/fr/guides/assurance-annulation-toutes-causes-sans-motif) et le comparatif [motifs garantis, toutes causes justifiées ou sans motif](/fr/guides/annulation-motifs-garantis-ou-toutes-causes-justifiees).
+
 Jamais couverts : un motif existant ou prévisible au moment de la souscription, et le simple changement d’avis.
 
 ## Quand souscrire
