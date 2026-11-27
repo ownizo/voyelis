@@ -12,6 +12,8 @@ const guides = defineCollection({
         lang,
         translationKey: z.string(),
         title: z.string(),
+        /** Short title for Google (max. 60 characters); the H1 keeps `title`. */
+        seoTitle: z.string().max(60).optional(),
         description: z.string().max(200),
         category: z.enum(['essentials', 'cancellation', 'destinations', 'medical', 'trip-types']),
         pubDate: z.coerce.date(),

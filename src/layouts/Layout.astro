@@ -30,7 +30,8 @@ const ui = t(locale);
 const meta = LOCALE_META[locale];
 const selfPath = alternates[locale] ?? '/';
 const canonical = absoluteUrl(selfPath);
-const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+// Brand suffix only when the whole title still fits in ~60 characters (what Google shows).
+const fullTitle = title.includes(SITE.name) || title.length + SITE.name.length + 3 > 60 ? title : `${title} | ${SITE.name}`;
 const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
 
 const orgLd = {

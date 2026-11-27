@@ -2,7 +2,7 @@
 lang: fr
 translationKey: what-it-covers
 title: 'Que couvre une assurance voyage ? Le guide complet'
-description: "Frais médicaux, rapatriement, annulation, bagages, responsabilité civile et assistance — ce que couvre une bonne assurance voyage et les exclusions à vérifier."
+description: "Frais médicaux, rapatriement, annulation, bagages, responsabilité civile et assistance : ce que couvre une bonne assurance voyage et ses exclusions."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 7

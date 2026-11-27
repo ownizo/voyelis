@@ -2,6 +2,7 @@
 lang: es
 translationKey: cancellation-reasons
 title: "Cancelación: motivos tasados, causa justificada o cualquier motivo"
+seoTitle: "Cancelación: motivos tasados, causa justificada o CFAR"
 description: "Los tres tipos de cobertura de cancelación comparados: qué reembolsa cada uno, franquicia, justificantes necesarios y cómo elegir."
 category: cancellation
 pubDate: 2026-11-27

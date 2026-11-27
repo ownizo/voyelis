@@ -2,7 +2,7 @@
 lang: fr
 translationKey: annual
 title: 'Assurance voyage annuelle multivoyages : est-ce rentable ?'
-description: Fonctionnement de l’assurance voyage annuelle, durée maximale par voyage, à partir de quand elle coûte moins cher que des contrats ponctuels et points à vérifier.
+description: "Assurance voyage annuelle : durée maximale par voyage, zone couverte, à partir de quand elle coûte moins cher que des contrats ponctuels."
 category: trip-types
 pubDate: 2026-11-27
 readingTime: 5

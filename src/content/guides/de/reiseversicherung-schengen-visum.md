@@ -2,7 +2,8 @@
 lang: de
 translationKey: schengen
 title: 'Reiseversicherung für das Schengen-Visum: Anforderungen und Nachweis'
-description: Die Versicherungsregeln für ein Schengen-Visum – mindestens 30.000 € Deckung, gesamter Schengen-Raum, gesamter Aufenthalt, Rücktransport – und wie Sie den Nachweis erhalten.
+seoTitle: "Reiseversicherung Schengen-Visum: Anforderungen"
+description: "Versicherung für das Schengen-Visum: mindestens 30.000 €, gesamter Schengen-Raum und Aufenthalt, Rücktransport – und wie Sie den Nachweis erhalten."
 category: trip-types
 pubDate: 2026-11-27
 readingTime: 6

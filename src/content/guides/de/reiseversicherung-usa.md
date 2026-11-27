@@ -2,7 +2,7 @@
 lang: de
 translationKey: usa
 title: 'Reiseversicherung USA: Wie viel Krankenschutz Sie brauchen'
-description: Medizinische Versorgung in den USA gehört zu den teuersten der Welt. Welche Versicherungssumme sinnvoll ist, worauf Sie achten sollten und welche Ausschlüsse Sie vermeiden.
+description: "Medizinische Versorgung in den USA ist extrem teuer. Welche Versicherungssumme sinnvoll ist, worauf Sie achten sollten und welche Ausschlüsse drohen."
 category: destinations
 pubDate: 2026-11-27
 readingTime: 6

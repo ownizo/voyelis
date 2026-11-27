@@ -2,6 +2,7 @@
 lang: fr
 translationKey: cfar
 title: "Assurance annulation sans motif (« cancel for any reason ») : comment ça marche"
+seoTitle: "Assurance annulation sans motif (CFAR) : le guide"
 description: "Ce que rembourse une assurance annulation sans motif (CFAR), les délais pour la souscrire et pour annuler, son coût et quand elle vaut le coup."
 category: cancellation
 pubDate: 2026-11-27

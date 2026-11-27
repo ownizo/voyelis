@@ -2,7 +2,8 @@
 lang: es
 translationKey: schengen
 title: 'Seguro de viaje para el visado Schengen: requisitos y certificado'
-description: Las reglas del seguro para el visado Schengen — mínimo 30.000 €, todo el espacio Schengen, toda la estancia, repatriación — y cómo obtener el certificado para el consulado.
+seoTitle: "Seguro de viaje para el visado Schengen: requisitos"
+description: "Requisitos del seguro para el visado Schengen: mínimo 30.000 €, todo el espacio Schengen, toda la estancia y repatriación. Cómo obtener el certificado."
 category: trip-types
 pubDate: 2026-11-27
 readingTime: 6

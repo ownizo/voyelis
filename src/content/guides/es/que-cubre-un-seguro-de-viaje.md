@@ -2,7 +2,7 @@
 lang: es
 translationKey: what-it-covers
 title: '¿Qué cubre un seguro de viaje? La guía completa'
-description: "Gastos médicos, repatriación, cancelación, equipaje, responsabilidad civil y asistencia — qué cubre un buen seguro de viaje y qué exclusiones conviene revisar."
+description: "Gastos médicos, repatriación, cancelación, equipaje, responsabilidad civil y asistencia: qué cubre un buen seguro de viaje y qué exclusiones revisar."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 7

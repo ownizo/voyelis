@@ -2,6 +2,7 @@
 lang: fr
 translationKey: usa
 title: 'Assurance voyage États-Unis : quel plafond de frais médicaux ?'
+seoTitle: "Assurance voyage États-Unis : quel plafond médical ?"
 description: "Les soins aux États-Unis comptent parmi les plus chers du monde. Quel plafond choisir, quoi vérifier et quelles exclusions éviter avant de partir."
 category: destinations
 pubDate: 2026-11-27

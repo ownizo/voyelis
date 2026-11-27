@@ -2,7 +2,8 @@
 lang: en
 translationKey: schengen
 title: 'Schengen visa travel insurance: requirements and how to get it'
-description: The insurance rules for a Schengen visa — minimum €30,000 cover, whole Schengen Area, the full stay, repatriation — and how to get a certificate for the consulate.
+seoTitle: "Schengen visa travel insurance: requirements"
+description: "Schengen visa insurance rules: at least €30,000 cover, valid in the whole Schengen Area for the full stay, with repatriation. How to get your certificate."
 category: trip-types
 pubDate: 2026-11-27
 readingTime: 6

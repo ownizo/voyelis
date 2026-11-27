@@ -2,7 +2,7 @@
 lang: fr
 translationKey: credit-card
 title: 'Assurance voyage de la carte bancaire : suffisante ou pas ?'
-description: Visa Premier, Gold Mastercard et autres cartes haut de gamme incluent des garanties voyage. Ce qu’elles couvrent, leurs conditions et les lacunes qui justifient une assurance dédiée.
+description: "Visa Premier, Gold Mastercard : ce que couvrent les garanties voyage des cartes bancaires, leurs conditions et les lacunes à combler."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 6

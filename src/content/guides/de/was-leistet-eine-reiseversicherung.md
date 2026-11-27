@@ -2,7 +2,7 @@
 lang: de
 translationKey: what-it-covers
 title: 'Was leistet eine Reiseversicherung? Der komplette Überblick'
-description: Krankheitskosten, Rücktransport, Reiserücktritt, Gepäck, Haftpflicht und Assistance – was eine gute Reiseversicherung abdeckt und welche Ausschlüsse Sie prüfen sollten.
+description: "Krankheitskosten, Rücktransport, Reiserücktritt, Gepäck, Haftpflicht und Assistance: was eine gute Reiseversicherung abdeckt und was nicht."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 7

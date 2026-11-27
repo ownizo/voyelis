@@ -2,7 +2,7 @@
 lang: en
 translationKey: ehic
 title: 'GHIC and EHIC vs travel insurance: what each one covers'
-description: The UK GHIC and the European EHIC give access to state healthcare in Europe — but not to private care, repatriation or cancellation. Why you still need travel insurance.
+description: "The GHIC and EHIC give access to state healthcare in Europe, but not to private care, repatriation or cancellation. Why you still need travel insurance."
 category: medical
 pubDate: 2026-11-27
 readingTime: 5

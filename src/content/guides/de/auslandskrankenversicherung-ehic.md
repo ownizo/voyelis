@@ -2,6 +2,7 @@
 lang: de
 translationKey: ehic
 title: 'Auslandskrankenversicherung und EHIC: Was die Gesundheitskarte nicht zahlt'
+seoTitle: "Auslandskrankenversicherung und EHIC: Was fehlt?"
 description: Die EHIC auf Ihrer Gesundheitskarte deckt staatliche Versorgung in Europa – aber keine Privatkliniken, keinen Rücktransport und keine Zuzahlungen.
 category: medical
 pubDate: 2026-11-27

@@ -2,6 +2,7 @@
 lang: de
 translationKey: cancellation
 title: 'Reiserücktrittsversicherung: Wie sie funktioniert und wann sie zahlt'
+seoTitle: "Reiserücktrittsversicherung: Wann sie zahlt"
 description: Was die Reiserücktrittsversicherung erstattet, welche Gründe versichert sind, wann Sie sie abschließen sollten und welchen Reisepreis Sie versichern.
 category: cancellation
 pubDate: 2026-11-27

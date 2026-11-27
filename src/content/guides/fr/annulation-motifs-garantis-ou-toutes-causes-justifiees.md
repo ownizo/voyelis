@@ -2,6 +2,7 @@
 lang: fr
 translationKey: cancellation-reasons
 title: "Annulation : motifs garantis, toutes causes justifiées ou sans motif ?"
+seoTitle: "Annulation : motifs garantis ou toutes causes justifiées"
 description: "Les trois formes de garantie annulation comparées : remboursement, franchise, justificatifs demandés et comment choisir."
 category: cancellation
 pubDate: 2026-11-27

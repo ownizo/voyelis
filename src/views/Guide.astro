@@ -47,7 +47,7 @@ const crumbs = breadcrumbLd([
 ]);
 ---
 
-<Layout locale={locale} title={post.data.title} description={post.data.description} type="article" alternates={{ ...alternates, [locale]: self }} jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
+<Layout locale={locale} title={post.data.seoTitle ?? post.data.title} description={post.data.description} type="article" alternates={{ ...alternates, [locale]: self }} jsonLd={[articleLd, crumbs, ...(post.data.faqs.length ? [faqLd(post.data.faqs)] : [])]}>
     <article>
         <header class="horizon">
             <div class="container-vy pb-10 pt-10 sm:pb-12 sm:pt-20">

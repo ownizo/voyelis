@@ -2,6 +2,7 @@
 lang: de
 translationKey: cancellation-reasons
 title: "Reiserücktritt: genannte Gründe, jeder begründete Anlass oder ohne Grund?"
+seoTitle: "Reiserücktritt: Gründe, Anlass oder ohne Grund?"
 description: "Die drei Arten von Reiserücktrittsschutz im Vergleich: was jede erstattet, Selbstbeteiligung, nötige Nachweise und wie Sie wählen."
 category: cancellation
 pubDate: 2026-11-27

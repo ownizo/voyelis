@@ -2,6 +2,7 @@
 lang: es
 translationKey: cfar
 title: "Seguro de cancelación por cualquier motivo (cancel for any reason): cómo funciona"
+seoTitle: "Seguro de cancelación por cualquier motivo (CFAR)"
 description: "Qué reembolsa un seguro de cancelación por cualquier motivo (CFAR), los plazos para contratarlo y para cancelar, cuánto cuesta y cuándo compensa."
 category: cancellation
 pubDate: 2026-11-27

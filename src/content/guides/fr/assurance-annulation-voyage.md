@@ -2,6 +2,7 @@
 lang: fr
 translationKey: cancellation
 title: 'Assurance annulation voyage : fonctionnement et remboursement'
+seoTitle: "Assurance annulation voyage : comment ça marche"
 description: Ce que rembourse l’assurance annulation, les motifs couverts, quand la souscrire et quel montant de voyage assurer.
 category: cancellation
 pubDate: 2026-11-27

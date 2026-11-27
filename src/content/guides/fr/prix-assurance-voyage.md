@@ -2,7 +2,7 @@
 lang: fr
 translationKey: cost
 title: 'Prix d’une assurance voyage : ce qui fait varier le tarif'
-description: Destination, durée, âge, montant d’annulation et niveau de garanties — les critères qui fixent le prix d’une assurance voyage et comment payer moins sans perdre en protection.
+description: "Destination, durée, âge, montant d’annulation et garanties : ce qui fait varier le prix d’une assurance voyage et comment payer moins."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 5

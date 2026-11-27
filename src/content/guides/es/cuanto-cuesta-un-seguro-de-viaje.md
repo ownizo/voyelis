@@ -2,7 +2,8 @@
 lang: es
 translationKey: cost
 title: '¿Cuánto cuesta un seguro de viaje? Lo que influye en el precio'
-description: Destino, duración, edad, importe de cancelación y nivel de cobertura — los factores que fijan el precio de un seguro de viaje y cómo pagar menos sin perder protección.
+seoTitle: "¿Cuánto cuesta un seguro de viaje?"
+description: "Destino, duración, edad, importe de cancelación y coberturas: qué fija el precio de un seguro de viaje y cómo pagar menos sin perder protección."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 5

@@ -2,7 +2,8 @@
 lang: fr
 translationKey: ehic
 title: 'Carte européenne d’assurance maladie (CEAM) ou assurance voyage ?'
-description: La CEAM donne accès aux soins publics en Europe — mais pas aux cliniques privées, au rapatriement ni aux restes à charge. Pourquoi une assurance voyage reste nécessaire.
+seoTitle: "CEAM ou assurance voyage : que couvre chacune ?"
+description: "La CEAM donne accès aux soins publics en Europe, mais pas aux cliniques privées, au rapatriement ni aux restes à charge. Pourquoi s’assurer en plus."
 category: medical
 pubDate: 2026-11-27
 readingTime: 5

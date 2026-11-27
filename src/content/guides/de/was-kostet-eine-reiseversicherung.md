@@ -2,7 +2,7 @@
 lang: de
 translationKey: cost
 title: 'Was kostet eine Reiseversicherung? Die Preisfaktoren'
-description: Reiseziel, Reisedauer, Alter, Reisepreis und Leistungsumfang – welche Faktoren den Preis einer Reiseversicherung bestimmen und wie Sie sparen, ohne Schutz zu verlieren.
+description: "Reiseziel, Dauer, Alter, Reisepreis und Leistungen: was den Preis einer Reiseversicherung bestimmt und wie Sie sparen, ohne Schutz zu verlieren."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 5

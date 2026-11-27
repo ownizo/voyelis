@@ -2,7 +2,8 @@
 lang: es
 translationKey: ehic
 title: 'Tarjeta Sanitaria Europea o seguro de viaje: qué cubre cada uno'
-description: La Tarjeta Sanitaria Europea da acceso a la sanidad pública en Europa, pero no a clínicas privadas, repatriación ni copagos. Por qué sigues necesitando un seguro de viaje.
+seoTitle: "Tarjeta Sanitaria Europea o seguro de viaje"
+description: "La Tarjeta Sanitaria Europea da acceso a la sanidad pública en Europa, pero no a clínicas privadas, repatriación ni copagos. Por qué necesitas un seguro."
 category: medical
 pubDate: 2026-11-27
 readingTime: 5

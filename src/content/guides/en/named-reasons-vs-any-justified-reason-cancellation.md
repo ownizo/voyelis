@@ -2,6 +2,7 @@
 lang: en
 translationKey: cancellation-reasons
 title: "Named reasons, any justified reason or cancel for any reason?"
+seoTitle: "Named reasons vs any justified reason vs CFAR"
 description: "The three kinds of trip cancellation cover compared: what each one refunds, the excess, the proof you need and how to choose."
 category: cancellation
 pubDate: 2026-11-27

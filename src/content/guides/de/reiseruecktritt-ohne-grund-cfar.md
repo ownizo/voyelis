@@ -2,6 +2,7 @@
 lang: de
 translationKey: cfar
 title: "Reiserücktritt ohne Grund (Cancel for any reason): So funktioniert es"
+seoTitle: "Reiserücktritt ohne Grund (CFAR) erklärt"
 description: "Was eine Reiserücktrittsversicherung „aus jedem Grund“ (CFAR) erstattet, welche Fristen gelten, was sie kostet und wann sie sich lohnt."
 category: cancellation
 pubDate: 2026-11-27

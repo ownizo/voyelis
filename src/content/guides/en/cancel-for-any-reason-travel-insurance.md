@@ -2,6 +2,7 @@
 lang: en
 translationKey: cfar
 title: "Cancel for any reason (CFAR) travel insurance: how it really works"
+seoTitle: "Cancel for any reason (CFAR) travel insurance explained"
 description: "What \"cancel for any reason\" cover refunds, the deadlines to buy it and to cancel, how much it costs and when it is worth it."
 category: cancellation
 pubDate: 2026-11-27

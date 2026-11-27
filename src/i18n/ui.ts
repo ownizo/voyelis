@@ -6,7 +6,7 @@ const en = {
     meta: {
         homeTitle: 'Voyelis — Compare travel insurance, protection first',
         homeDescription:
-            'Compare travel insurance from several insurers in minutes: medical expenses, repatriation, cancellation and 24/7 assistance. Free, no personal details needed. Policies sold by HelloSafe.',
+            'Compare travel insurance from several insurers: medical cover, repatriation, cancellation and 24/7 assistance. Free, no personal details. Sold by HelloSafe.',
         skip: 'Skip to content'
     },
     brand: {
@@ -277,9 +277,9 @@ export type UI = typeof en;
 
 const de: UI = {
     meta: {
-        homeTitle: 'Voyelis — Reiseversicherungen vergleichen, Schutz zuerst',
+        homeTitle: 'Voyelis — Reiseversicherungen vergleichen',
         homeDescription:
-            'Reiseversicherungen mehrerer Versicherer in wenigen Minuten vergleichen: Auslandskrankenschutz, Rücktransport, Reiserücktritt und 24/7-Assistance. Kostenlos, ohne persönliche Daten. Verkauf durch HelloSafe.',
+            'Reiseversicherungen mehrerer Versicherer vergleichen: Krankenschutz, Rücktransport, Reiserücktritt und Assistance. Kostenlos, ohne persönliche Daten.',
         skip: 'Zum Inhalt springen'
     },
     brand: {
@@ -355,7 +355,7 @@ const de: UI = {
     },
     compare: {
         title: 'Reiseversicherung vergleichen',
-        description: 'Reiseversicherungen in Echtzeit vergleichen: Preise und Leistungen für Krankheitskosten, Rücktransport, Reiserücktritt und Gepäck. Kostenlos, ohne persönliche Daten.',
+        description: 'Reiseversicherungen in Echtzeit vergleichen: Preise und Leistungen für Krankheitskosten, Rücktransport, Reiserücktritt und Gepäck. Kostenlos.',
         eyebrow: 'Vergleich',
         h1: 'Reiseversicherungen vergleichen',
         accent: 'in Echtzeit',
@@ -548,9 +548,9 @@ const de: UI = {
 
 const fr: UI = {
     meta: {
-        homeTitle: 'Voyelis — Comparez les assurances voyage, la protection d’abord',
+        homeTitle: 'Voyelis — Comparateur d’assurance voyage',
         homeDescription:
-            'Comparez en quelques minutes les assurances voyage de plusieurs assureurs : frais médicaux, rapatriement, annulation et assistance 24 h/24. Gratuit, sans données personnelles. Contrats vendus par HelloSafe.',
+            'Comparez les assurances voyage de plusieurs assureurs : frais médicaux, rapatriement, annulation et assistance 24 h/24. Gratuit, sans données personnelles.',
         skip: 'Aller au contenu'
     },
     brand: {
@@ -819,9 +819,9 @@ const fr: UI = {
 
 const es: UI = {
     meta: {
-        homeTitle: 'Voyelis — Compara seguros de viaje, la protección primero',
+        homeTitle: 'Voyelis — Compara seguros de viaje',
         homeDescription:
-            'Compara en minutos seguros de viaje de varias aseguradoras: gastos médicos, repatriación, cancelación y asistencia 24 h. Gratis y sin datos personales. Pólizas vendidas por HelloSafe.',
+            'Compara seguros de viaje de varias aseguradoras: gastos médicos, repatriación, cancelación y asistencia 24 h. Gratis y sin datos personales.',
         skip: 'Ir al contenido'
     },
     brand: {

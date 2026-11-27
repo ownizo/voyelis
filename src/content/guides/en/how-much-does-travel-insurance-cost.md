@@ -2,7 +2,7 @@
 lang: en
 translationKey: cost
 title: 'How much does travel insurance cost? What drives the price'
-description: Destination, trip length, age, cancellation amount and cover level — the factors that set the price of travel insurance and how to pay less without losing protection.
+description: "Destination, trip length, age, cancellation amount and cover level: what sets the price of travel insurance and how to pay less without losing protection."
 category: essentials
 pubDate: 2026-11-27
 readingTime: 5

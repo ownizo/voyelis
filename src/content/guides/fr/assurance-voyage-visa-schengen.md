@@ -2,7 +2,7 @@
 lang: fr
 translationKey: schengen
 title: 'Assurance voyage visa Schengen : conditions et attestation'
-description: Les règles d’assurance pour un visa Schengen — 30 000 € minimum, tout l’espace Schengen, toute la durée du séjour, rapatriement — et comment obtenir l’attestation pour le consulat.
+description: "Assurance visa Schengen : 30 000 € minimum, tout l’espace Schengen, toute la durée du séjour, rapatriement. Comment obtenir l’attestation."
 category: trip-types
 pubDate: 2026-11-27
 readingTime: 6

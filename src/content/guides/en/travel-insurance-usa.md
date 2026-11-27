@@ -2,6 +2,7 @@
 lang: en
 translationKey: usa
 title: 'Travel insurance for the USA: how much medical cover you need'
+seoTitle: "Travel insurance for the USA: medical cover you need"
 description: Healthcare in the United States is among the most expensive in the world. How much medical cover to choose, what to check and the exclusions to avoid.
 category: destinations
 pubDate: 2026-11-27

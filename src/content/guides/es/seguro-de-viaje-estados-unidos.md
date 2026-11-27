@@ -2,6 +2,7 @@
 lang: es
 translationKey: usa
 title: 'Seguro de viaje a Estados Unidos: cuánta cobertura médica necesitas'
+seoTitle: "Seguro de viaje a Estados Unidos: cobertura médica"
 description: La sanidad en Estados Unidos es de las más caras del mundo. Qué límite médico elegir, qué revisar y qué exclusiones evitar antes de viajar.
 category: destinations
 pubDate: 2026-11-27
