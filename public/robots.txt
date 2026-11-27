@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-# AI assistants and AI search engines: access allowed (see /llms.txt)
+# AI assistants and AI search engines: access allowed (see /llms.txt and /llms-full.txt)
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot
